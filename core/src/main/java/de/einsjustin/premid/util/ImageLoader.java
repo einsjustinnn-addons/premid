@@ -42,10 +42,11 @@ public class ImageLoader {
   }
 
   private static BufferedImage fromBase64(String base64String) throws IOException {
-    String base64Data = base64String.substring(base64String.indexOf(",") + 1);
-    byte[] imageBytes = Base64.getDecoder().decode(base64Data);
-    try (ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes)) {
-      return ImageIO.read(bis);
-    }
+    String imageData = base64String.substring(base64String.indexOf(",") + 1);
+    byte[] imageBytes = Base64.getDecoder().decode(imageData);
+    ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
+    BufferedImage read = ImageIO.read(bis);
+    bis.close();
+    return read;
   }
 }
