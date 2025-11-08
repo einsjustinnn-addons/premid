@@ -7,6 +7,8 @@ import net.labymod.api.client.resources.ResourceLocation;
 import net.labymod.api.client.resources.texture.GameImage;
 import net.labymod.api.client.resources.texture.SimpleTexture;
 import java.awt.image.BufferedImage;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,9 +18,8 @@ public class Utils {
 
   public static Icon getIcon(ActiveActivity activeActivity) {
 
-    String state = activeActivity.getState() !=  null ? activeActivity.getState() : "placeholder_state";
-    String details = activeActivity.getDetails() !=  null ? activeActivity.getDetails() : "placeholder_details";
-    String path = state.toLowerCase().replaceAll(" ", "_") + "-" + details.toLowerCase().replaceAll(" ", "_");
+    String largeImage = activeActivity.getAssets().getLargeImage();
+    String path = Base64.getEncoder().encodeToString(largeImage.getBytes(StandardCharsets.UTF_8)).replace("=", "").toLowerCase();
 
     Icon cachedIcon = iconCache.get(path);
     if (cachedIcon != null) {
@@ -27,7 +28,7 @@ public class Utils {
 
     ResourceLocation resourceLocation = getResourceLocationForActivity(path);
 
-    BufferedImage bufferedImage = ImageLoader.loadImage(activeActivity.getAssets().getLargeImage());
+    BufferedImage bufferedImage = ImageLoader.loadImage(largeImage);
     if (bufferedImage != null) {
       GameImage image = Laby.references().gameImageProvider().getImage(bufferedImage);
       SimpleTexture texture = SimpleTexture.simple(resourceLocation, image);
@@ -40,7 +41,7 @@ public class Utils {
   }
 
   private static ResourceLocation getResourceLocationForActivity(String path) {
-    return Laby.references().resourceLocationFactory().create("premid", "test/" + path);
+    return Laby.references().resourceLocationFactory().create("premid", "icons/" + path);
   }
 
 }

@@ -47,19 +47,15 @@ public class PreMiDTag extends ComponentNameTag {
     PreMiDUserSnapshot preMiDUserSnapshot = this.snapshot.get(PreMiDExtraKeys.PREMID_USER);
     PreMiDActivity activity = preMiDUserSnapshot.getActivity();
     if (activity == null) {
-      Laby.labyAPI().minecraft().chatExecutor().displayClientMessage("null1");
       return super.buildComponents(snapshot);
     }
     ActiveActivity activeActivity = activity.getActiveActivity();
 
     if (activeActivity == null) {
-      Laby.labyAPI().minecraft().chatExecutor().displayClientMessage("null");
       return super.buildComponents(snapshot);
     }
 
-    // System.out.println("loading Icon");
     this.icon = Utils.getIcon(activeActivity);
-    // System.out.println("finished");
 
     List<Component> components = new ArrayList<>();
 
