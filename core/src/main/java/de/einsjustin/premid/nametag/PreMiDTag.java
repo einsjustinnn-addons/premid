@@ -32,7 +32,7 @@ public class PreMiDTag extends ComponentNameTag {
   private static final float BACKGROUND_DEPTH = -0.03F;
 
   private Icon icon;
-  private HorizontalAlignment alignment = HorizontalAlignment.LEFT;
+  private List<Component> components;
 
   @Override
   protected @NotNull List<Component> buildComponents(EntitySnapshot snapshot) {
@@ -55,9 +55,11 @@ public class PreMiDTag extends ComponentNameTag {
       return super.buildComponents(snapshot);
     }
 
-    this.icon = Utils.getIcon(activeActivity);
+    if (activeActivity.getAssets().getLargeImage() != null) {
+      this.icon = Utils.getIcon(activeActivity);
+    }
 
-    List<Component> components = new ArrayList<>();
+    components = new ArrayList<>();
 
     ActivityType type = ActivityType.fromId(activeActivity.getType());
     String niceName = type.getNiceName();
@@ -69,14 +71,14 @@ public class PreMiDTag extends ComponentNameTag {
       components.add(Component.text(niceName));
     }
 
-    String state = activeActivity.getState();
-    if (state != null) {
-      components.add(Component.text(state));
-    }
-
     String details = activeActivity.getDetails();
     if (details != null) {
       components.add(Component.text(details));
+    }
+
+    String state = activeActivity.getState();
+    if (state != null) {
+      components.add(Component.text(state));
     }
 
     return components;
@@ -97,7 +99,7 @@ public class PreMiDTag extends ComponentNameTag {
         stack,
         RenderStates.GUI,
         new ColoredRectangle(
-            -1.0F, -1.0F,
+            -3.0F, -1.0F,
             backgroundWidth + 1.0F, size + 1.0F,
             INVERSE_DEPTH ? -BACKGROUND_DEPTH : BACKGROUND_DEPTH,
             backgroundArgb
@@ -111,12 +113,10 @@ public class PreMiDTag extends ComponentNameTag {
           stack,
           this.icon,
           DisplayMode.NORMAL,
-          0, 0,
+          -2, 0,
           size, size,
           -1
       );
-
-      // Laby.labyAPI().minecraft().chatExecutor().displayClientMessage("render icon");
     }
   }
 
@@ -124,10 +124,10 @@ public class PreMiDTag extends ComponentNameTag {
   protected void submitText(Stack stack, SubmissionCollector submissionCollector,
       EntitySnapshot snapshot, Component component, float xOffset, float yOffset) {
 
-    if (this.alignment == HorizontalAlignment.LEFT) {
-      xOffset = this.getHeight() + 1.0F;
-    } else if (this.alignment == HorizontalAlignment.CENTER) {
-      xOffset = (this.getWidth() - this.fontRenderer.getWidth(component)) / 2.0F;
+    xOffset = this.getHeight() + 1.0F;
+
+    if (this.components.size() != 3) {
+      yOffset += (this.fontRenderer.getLineHeight() + this.components.size()) / this.components.size();
     }
 
     submissionCollector.order(3).submitComponent(
@@ -154,7 +154,12 @@ public class PreMiDTag extends ComponentNameTag {
 
   @Override
   public float getWidth() {
-    return super.getWidth() + (this.icon != null ? this.getHeight() : 0);
+    return super.getWidth() + (this.icon != null ? this.getHeight() : 0) + 2.0F;
+  }
+
+  @Override
+  public float getHeight() {
+    return this.fontRenderer.getLineHeight() * 3;
   }
 
   @Override
