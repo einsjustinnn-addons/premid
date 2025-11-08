@@ -1,3 +1,5 @@
+import net.labymod.labygradle.common.extension.model.labymod.ReleaseChannels
+
 plugins {
     id("net.labymod.labygradle")
     id("net.labymod.labygradle.addon")
@@ -9,7 +11,7 @@ group = "org.example"
 version = providers.environmentVariable("VERSION").getOrElse("1.0.0")
 
 labyMod {
-    defaultPackageName = "org.example" //change this to your main package name (used by all modules)
+    defaultPackageName = "de.einsjustin.premid" //change this to your main package name (used by all modules)
 
     minecraft {
         registerVersion(versions.toTypedArray()) {
@@ -23,12 +25,14 @@ labyMod {
     }
 
     addonInfo {
-        namespace = "example"
-        displayName = "ExampleAddon"
-        author = "Example Author"
-        description = "Example Description"
+        namespace = "premid"
+        displayName = "PreMiD"
+        author = "EinsJustin"
+        description = "This is an addon for PreMid, the browser extension. It allows you to transfer your activities in Minecraft."
         minecraftVersion = "*"
         version = rootProject.version.toString()
+
+        releaseChannel = ReleaseChannels.SNAPSHOT
     }
 }
 
