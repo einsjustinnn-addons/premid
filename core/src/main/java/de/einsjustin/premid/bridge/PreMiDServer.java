@@ -61,5 +61,6 @@ public class PreMiDServer {
     byte[] bytes = "OK".getBytes(StandardCharsets.UTF_8);
     exchange.sendResponseHeaders(200, 0);
     exchange.getResponseBody().write(bytes);
+    exchange.close();
   }
 }
