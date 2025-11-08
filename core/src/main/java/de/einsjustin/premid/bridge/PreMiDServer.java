@@ -49,7 +49,7 @@ public class PreMiDServer {
 
         PreMiDActivity activity = new Gson().fromJson(body, PreMiDActivity.class);
 
-        System.out.println("fireEvent: " + activity.getActiveActivity().getAssets().getLargeImage());
+        System.out.println("fireEvent: " + activity);
         Laby.fireEvent(new PreMiDActivityChangeEvent(activity));
 
         sendResponse(exchange);

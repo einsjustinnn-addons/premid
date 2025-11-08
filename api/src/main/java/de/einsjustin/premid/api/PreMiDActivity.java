@@ -7,61 +7,22 @@ public class PreMiDActivity {
   @SerializedName("active_activity")
   private ActiveActivity activeActivity;
 
-  private Extension extension;
-
   public ActiveActivity getActiveActivity() {
     return activeActivity;
   }
 
-  public Extension getExtension() {
-    return extension;
-  }
-
   @Override
   public String toString() {
-    return "Activity{" +
+    return "PreMiDActivity{" +
         "activeActivity=" + activeActivity +
-        ", extension=" + extension +
         '}';
-  }
-
-  public class Extension {
-
-    private String version;
-    @SerializedName("user_id")
-    private String userId;
-    @SerializedName("api_version")
-    private int apiVersion;
-
-    public int getApiVersion() {
-      return apiVersion;
-    }
-
-    public String getUserId() {
-      return userId;
-    }
-
-    public String getVersion() {
-      return version;
-    }
-
-    @Override
-    public String toString() {
-      return "Extension{" +
-          "version='" + version + '\'' +
-          ", userId='" + userId + '\'' +
-          ", apiVersion=" + apiVersion +
-          '}';
-    }
   }
 
   public class ActiveActivity {
     private String name;
-    private String service;
     private int type;
     private String details;
     private String state;
-    private Timestamps timestamps;
     private Assets assets;
 
     public String getName() {
@@ -70,10 +31,6 @@ public class PreMiDActivity {
 
     public Assets getAssets() {
       return assets;
-    }
-
-    public Timestamps getTimestamps() {
-      return timestamps;
     }
 
     public String getState() {
@@ -88,41 +45,14 @@ public class PreMiDActivity {
       return type;
     }
 
-    public String getService() {
-      return service;
-    }
-
     @Override
     public String toString() {
       return "ActiveActivity{" +
           "name='" + name + '\'' +
-          ", service='" + service + '\'' +
           ", type=" + type +
           ", details='" + details + '\'' +
           ", state='" + state + '\'' +
-          ", timestamps=" + timestamps +
           ", assets=" + assets +
-          '}';
-    }
-  }
-
-  public class Timestamps {
-    private long start;
-    private long end;
-
-    public long getStart() {
-      return start;
-    }
-
-    public long getEnd() {
-      return end;
-    }
-
-    @Override
-    public String toString() {
-      return "Timestamps{" +
-          "start=" + start +
-          ", end=" + end +
           '}';
     }
   }
@@ -130,22 +60,15 @@ public class PreMiDActivity {
   public class Assets {
     @SerializedName("large_image")
     private String largeImage;
-    @SerializedName("small_image")
-    private String smallImage;
 
     public String getLargeImage() {
       return largeImage;
-    }
-
-    public String getSmallImage() {
-      return smallImage;
     }
 
     @Override
     public String toString() {
       return "Assets{" +
           "largeImage='" + largeImage + '\'' +
-          ", smallImage='" + smallImage + '\'' +
           '}';
     }
   }
@@ -162,10 +85,6 @@ public class PreMiDActivity {
 
     ActivityType(int id) {
       this.id = id;
-    }
-
-    public int getId() {
-      return id;
     }
 
     public String getNiceName() {
