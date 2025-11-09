@@ -61,6 +61,10 @@ public class PreMiDActivity {
     @SerializedName("large_image")
     private String largeImage;
 
+    public void setLargeImage(String largeImage) {
+      this.largeImage = largeImage;
+    }
+
     public String getLargeImage() {
       return largeImage;
     }

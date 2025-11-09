@@ -1,17 +1,21 @@
 package de.einsjustin.premid.util;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import net.labymod.api.util.io.web.request.Request;
+import net.labymod.api.util.io.web.request.Request.Method;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
-import java.util.Base64;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ImageLoader {
 
   public static BufferedImage loadImage(String input) {
     try {
       if (isBase64Image(input)) {
-        return fromBase64(input);
+        return fromUrl(getUrlFromBase64(input));
       } else if (isUrl(input)) {
         return fromUrl(input);
       } else {
@@ -32,7 +36,7 @@ public class ImageLoader {
     }
   }
 
-  private static boolean isBase64Image(String input) {
+  public static boolean isBase64Image(String input) {
     return input != null && input.matches("^data:image/(png|jpeg|jpg|gif);base64,.*");
   }
 
@@ -41,12 +45,28 @@ public class ImageLoader {
     return ImageIO.read(url);
   }
 
-  private static BufferedImage fromBase64(String base64String) throws IOException {
-    String imageData = base64String.substring(base64String.indexOf(",") + 1);
-    byte[] imageBytes = Base64.getDecoder().decode(imageData);
-    ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
-    BufferedImage read = ImageIO.read(bis);
-    bis.close();
-    return read;
+  public static String getUrlFromBase64(String base64String) throws IOException {
+
+    AtomicReference<String> url = new AtomicReference<>();
+
+    JsonObject jsonObject = new JsonObject();
+    jsonObject.addProperty("image", base64String);
+    Request.ofString()
+        .url("https://image-shortlink-worker.northernside.workers.dev/upload")
+        .method(Method.POST)
+        .json(jsonObject)
+        .handleErrorStream()
+        .execute(stringResponse -> {
+          if (stringResponse.hasException()) {
+            return;
+          }
+          if (stringResponse.getStatusCode() != 200) {
+            return;
+          }
+          JsonObject asJsonObject = JsonParser.parseString(stringResponse.get()).getAsJsonObject();
+          url.set(asJsonObject.get("url").getAsString());
+        });
+
+    return url.get();
   }
 }

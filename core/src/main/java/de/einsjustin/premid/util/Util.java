@@ -12,9 +12,9 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Utils {
+public class Util {
 
-  private static final Map<String, Icon> iconCache = new HashMap<>();
+  public static final Map<String, Icon> iconCache = new HashMap<>();
 
   public static Icon getIcon(ActiveActivity activeActivity) {
 

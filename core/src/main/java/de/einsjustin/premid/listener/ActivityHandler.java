@@ -5,21 +5,22 @@ import com.google.gson.JsonElement;
 import de.einsjustin.premid.PreMiDAddon;
 import de.einsjustin.premid.api.PreMiDActivity;
 import de.einsjustin.premid.api.event.PreMiDActivityChangeEvent;
+import de.einsjustin.premid.util.ImageLoader;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.network.playerinfo.PlayerInfoRemoveEvent;
 import net.labymod.api.event.client.world.WorldLeaveEvent;
 import net.labymod.api.event.labymod.labyconnect.session.LabyConnectBroadcastEvent;
 import net.labymod.api.event.labymod.labyconnect.session.LabyConnectBroadcastEvent.Action;
 import net.labymod.api.labyconnect.LabyConnectSession;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class ActivityHandler {
 
-  private final Map<UUID, PreMiDActivity> activities = new HashMap<>();
-
   private final PreMiDAddon addon;
+  private final Map<UUID, PreMiDActivity> activities = new HashMap<>();
 
   public ActivityHandler(PreMiDAddon addon) {
     this.addon = addon;
@@ -29,10 +30,27 @@ public class ActivityHandler {
   public void onPreMiDActivityChange(PreMiDActivityChangeEvent event) {
     PreMiDActivity activity = event.activity();
     if (activity == null) return;
+
+    formatActivity(activity);
+
     this.activities.put(this.addon.labyAPI().getUniqueId(), activity);
 
-    // TODO: send activity to LabyConnect broadcast
     sendBroadcast(activity);
+  }
+
+  private void formatActivity(PreMiDActivity activity) {
+    // TODO: short name, state and details
+    String largeImage = activity.getActiveActivity().getAssets().getLargeImage();
+    boolean base64Image = ImageLoader.isBase64Image(largeImage);
+    if (base64Image) {
+      String urlFromBase64;
+      try {
+        urlFromBase64 = ImageLoader.getUrlFromBase64(largeImage);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+      activity.getActiveActivity().getAssets().setLargeImage(urlFromBase64);
+    }
   }
 
   private void sendBroadcast(PreMiDActivity activity) {
@@ -47,7 +65,6 @@ public class ActivityHandler {
 
   @Subscribe
   public void onLabyConnectBroadcast(LabyConnectBroadcastEvent event) {
-    // TODO: handle broadcast from other player
 
     System.out.println("payload received");
 

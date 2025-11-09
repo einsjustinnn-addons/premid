@@ -5,12 +5,11 @@ import de.einsjustin.premid.api.PreMiDActivity.ActiveActivity;
 import de.einsjustin.premid.api.PreMiDActivity.ActivityType;
 import de.einsjustin.premid.snapshot.PreMiDExtraKeys;
 import de.einsjustin.premid.snapshot.PreMiDUserSnapshot;
-import de.einsjustin.premid.util.Utils;
+import de.einsjustin.premid.util.Util;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.entity.player.tag.tags.ComponentNameTag;
 import net.labymod.api.client.gfx.pipeline.renderer.text.FontFlags;
-import net.labymod.api.client.gui.HorizontalAlignment;
 import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.client.render.matrix.Stack;
 import net.labymod.api.client.render.state.entity.AvatarSnapshot;
@@ -56,32 +55,32 @@ public class PreMiDTag extends ComponentNameTag {
     }
 
     if (activeActivity.getAssets().getLargeImage() != null) {
-      this.icon = Utils.getIcon(activeActivity);
+      this.icon = Util.getIcon(activeActivity);
     }
 
-    components = new ArrayList<>();
+    this.components = new ArrayList<>();
 
     ActivityType type = ActivityType.fromId(activeActivity.getType());
     String niceName = type.getNiceName();
 
     String name = activeActivity.getName();
     if (name != null) {
-      components.add(Component.text(niceName + " " +  name));
+      this.components.add(Component.text(niceName + " " +  name));
     } else {
-      components.add(Component.text(niceName));
+      this.components.add(Component.text(niceName));
     }
 
     String details = activeActivity.getDetails();
     if (details != null) {
-      components.add(Component.text(details));
+      this.components.add(Component.text(details));
     }
 
     String state = activeActivity.getState();
     if (state != null) {
-      components.add(Component.text(state));
+      this.components.add(Component.text(state));
     }
 
-    return components;
+    return this.components;
   }
 
   @Override
