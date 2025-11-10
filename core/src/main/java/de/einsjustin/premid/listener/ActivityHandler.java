@@ -68,6 +68,9 @@ public class ActivityHandler {
   }
 
   private void sendBroadcast(PreMiDActivity activity) {
+    if (!this.addon.configuration().shareActivity().get() || !this.addon.configuration().enabled().get()) {
+      return;
+    }
     LabyConnectSession session = this.addon.labyAPI().labyConnect().getSession();
     if (session == null || !session.isAuthenticated()) {
       return;

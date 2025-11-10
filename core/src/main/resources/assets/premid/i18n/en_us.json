@@ -3,6 +3,9 @@
     "settings": {
       "enabled": {
         "name": "Enabled"
+      },
+      "shareActivity": {
+        "name": "Share activity"
       }
     },
     "activity": {
