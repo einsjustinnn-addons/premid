@@ -29,7 +29,11 @@ public class ActivityHandler {
   @Subscribe
   public void onPreMiDActivityChange(PreMiDActivityChangeEvent event) {
     PreMiDActivity activity = event.activity();
-    if (activity == null) return;
+
+    if (activity.getActiveActivity() == null) {
+      this.activities.remove(this.addon.labyAPI().getUniqueId());
+      return;
+    }
 
     formatActivity(activity);
 
@@ -41,16 +45,13 @@ public class ActivityHandler {
   private void formatActivity(PreMiDActivity activity) {
     // TODO: short name, state and details
     String largeImage = activity.getActiveActivity().getAssets().getLargeImage();
-    boolean base64Image = ImageLoader.isBase64Image(largeImage);
-    if (base64Image) {
-      String urlFromBase64;
-      try {
-        urlFromBase64 = ImageLoader.getUrlFromBase64(largeImage);
-      } catch (IOException e) {
-        throw new RuntimeException(e);
-      }
-      activity.getActiveActivity().getAssets().setLargeImage(urlFromBase64);
+    String urlFromBase64;
+    try {
+      urlFromBase64 = ImageLoader.getUrlFromBase64(largeImage);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
+    activity.getActiveActivity().getAssets().setLargeImage(urlFromBase64);
   }
 
   private void sendBroadcast(PreMiDActivity activity) {
