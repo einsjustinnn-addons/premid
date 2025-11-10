@@ -6,6 +6,7 @@ import net.labymod.api.laby3d.renderer.snapshot.Extras;
 import net.labymod.api.laby3d.renderer.snapshot.LabySnapshotFactory;
 import net.labymod.api.service.annotation.AutoService;
 
+@SuppressWarnings("unused")
 @AutoService(LabySnapshotFactory.class)
 public class PreMiDSnapshotFactory extends LabySnapshotFactory<Player, PreMiDUserSnapshot> {
 

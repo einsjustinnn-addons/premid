@@ -16,6 +16,7 @@ public class Util {
 
   public static final Map<String, Icon> iconCache = new HashMap<>();
 
+  @SuppressWarnings("UnstableApiUsage")
   public static Icon getIcon(ActiveActivity activeActivity) {
 
     String largeImage = activeActivity.getAssets().getLargeImage();

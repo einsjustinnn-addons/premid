@@ -7,6 +7,7 @@ import net.labymod.api.util.io.web.request.Request.Method;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URI;
 import java.net.URL;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -22,14 +23,15 @@ public class ImageLoader {
         System.err.println("Ungültiges Eingabeformat: weder URL noch Base64-Bild.");
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
     return null;
   }
 
+  @SuppressWarnings("ResultOfMethodCallIgnored")
   private static boolean isUrl(String input) {
     try {
-      new URL(input).toURI();
+      URI.create(input);
       return input.startsWith("http://") || input.startsWith("https://");
     } catch (Exception e) {
       return false;
@@ -41,7 +43,7 @@ public class ImageLoader {
   }
 
   private static BufferedImage fromUrl(String urlString) throws IOException {
-    URL url = new URL(urlString);
+    URL url = URI.create(urlString).toURL();
     return ImageIO.read(url);
   }
 
