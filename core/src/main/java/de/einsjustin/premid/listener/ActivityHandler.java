@@ -43,15 +43,25 @@ public class ActivityHandler {
   }
 
   private void formatActivity(PreMiDActivity activity) {
-    // TODO: short name, state and details
-    String largeImage = activity.getActiveActivity().getAssets().getLargeImage();
+    ActiveActivity activeActivity = activity.getActiveActivity();
+    String largeImage = activeActivity.getAssets().getLargeImage();
     String urlFromBase64;
     try {
       urlFromBase64 = ImageLoader.getUrlFromBase64(largeImage);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-    activity.getActiveActivity().getAssets().setLargeImage(urlFromBase64);
+    activeActivity.getAssets().setLargeImage(urlFromBase64);
+
+    if (activeActivity.getName() != null && activeActivity.getName().length() > 32) {
+      activeActivity.setName(activeActivity.getName().substring(0, 29) + "...");
+    }
+    if (activeActivity.getDetails() != null && activeActivity.getDetails().length() > 32) {
+      activeActivity.setDetails(activeActivity.getDetails().substring(0, 29) + "...");
+    }
+    if (activeActivity.getState() != null && activeActivity.getState().length() > 32) {
+      activeActivity.setState(activeActivity.getState().substring(0, 29) + "...");
+    }
   }
 
   private void sendBroadcast(PreMiDActivity activity) {
