@@ -94,10 +94,6 @@ public class ActivityHandler {
     this.activities.clear();
   }
 
-  public boolean hasActivity(UUID uuid) {
-    return this.activities.containsKey(uuid);
-  }
-
   public PreMiDActivity getActivity(UUID uuid) {
     return this.activities.get(uuid);
   }

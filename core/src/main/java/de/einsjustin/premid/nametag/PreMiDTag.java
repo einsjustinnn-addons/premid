@@ -33,6 +33,8 @@ public class PreMiDTag extends ComponentNameTag {
   private Icon icon;
   private List<Component> components;
 
+  // TODO: center lines if it has no icon
+
   @Override
   protected @NotNull List<Component> buildComponents(EntitySnapshot snapshot) {
     if (!(snapshot instanceof AvatarSnapshot avatarSnapshot) || avatarSnapshot.isDiscrete()) {
