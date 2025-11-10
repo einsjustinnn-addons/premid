@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import de.einsjustin.premid.PreMiDAddon;
 import de.einsjustin.premid.api.PreMiDActivity;
+import de.einsjustin.premid.api.PreMiDActivity.ActiveActivity;
 import de.einsjustin.premid.api.event.PreMiDActivityChangeEvent;
 import de.einsjustin.premid.util.ImageLoader;
 import net.labymod.api.event.Subscribe;
@@ -91,6 +92,11 @@ public class ActivityHandler {
 
     UUID sender = event.getSender();
     PreMiDActivity activity = new Gson().fromJson(event.getPayload(), PreMiDActivity.class);
+
+    if (activity.getActiveActivity() == null) {
+      this.activities.remove(sender);
+      return;
+    }
 
     this.activities.put(sender, activity);
   }
