@@ -2,27 +2,24 @@ package de.einsjustin.premid.util;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.util.io.web.request.Request;
 import net.labymod.api.util.io.web.request.Request.Method;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URI;
-import java.net.URL;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ImageLoader {
 
-  public static BufferedImage loadImage(String input) {
+  public static Icon getIcon(String input) {
     try {
       if (isBase64Image(input)) {
-        return fromUrl(getUrlFromBase64(input));
+        String urlFromBase64 = getUrlFromBase64(input);
+        return Icon.url(urlFromBase64);
       } else if (isUrl(input)) {
-        return fromUrl(input);
-      } else {
-        System.err.println("Ungültiges Eingabeformat: weder URL noch Base64-Bild.");
+        return Icon.url(input);
       }
-    } catch (Exception e) {
+    } catch (IOException e) {
       throw new RuntimeException(e);
     }
     return null;
@@ -40,11 +37,6 @@ public class ImageLoader {
 
   private static boolean isBase64Image(String input) {
     return input != null && input.matches("^data:image/(png|jpeg|jpg|gif);base64,.*");
-  }
-
-  private static BufferedImage fromUrl(String urlString) throws IOException {
-    URL url = URI.create(urlString).toURL();
-    return ImageIO.read(url);
   }
 
   public static String getUrlFromBase64(String base64String) throws IOException {
