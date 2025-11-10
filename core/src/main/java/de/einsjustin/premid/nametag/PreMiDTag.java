@@ -63,7 +63,7 @@ public class PreMiDTag extends ComponentNameTag {
     this.components = new ArrayList<>();
 
     ActivityType type = ActivityType.fromId(activeActivity.getType());
-    String niceName = type.getNiceName();
+    String niceName = type.getName();
 
     String name = activeActivity.getName();
     if (name != null) {

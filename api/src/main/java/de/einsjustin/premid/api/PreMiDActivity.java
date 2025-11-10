@@ -1,6 +1,7 @@
 package de.einsjustin.premid.api;
 
 import com.google.gson.annotations.SerializedName;
+import net.labymod.api.util.I18n;
 
 public class PreMiDActivity {
 
@@ -78,7 +79,6 @@ public class PreMiDActivity {
   }
 
   public enum ActivityType {
-    // TODO: i18n
     PLAYING(0),
     STREAMING(1),
     LISTENING(2),
@@ -92,8 +92,8 @@ public class PreMiDActivity {
       this.id = id;
     }
 
-    public String getNiceName() {
-      return name().substring(0, 1).toUpperCase() + name().substring(1).toLowerCase();
+    public String getName() {
+      return I18n.getTranslation("premid.activity.type." + this.name().toLowerCase());
     }
 
     public static ActivityType fromId(int id) {

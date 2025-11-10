@@ -1,8 +1,18 @@
 {
-  "example": {
+  "premid": {
     "settings": {
       "enabled": {
         "name": "Enabled"
+      }
+    },
+    "activity": {
+      "type": {
+        "playing": "Playing",
+        "streaming": "Streaming",
+        "listening": "Listening",
+        "watching": "Watching",
+        "competing": "Competing",
+        "unknown": "Unknown"
       }
     }
   }
