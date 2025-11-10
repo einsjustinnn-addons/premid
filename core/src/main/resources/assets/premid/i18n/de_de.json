@@ -1,0 +1,22 @@
+{
+  "premid": {
+    "settings": {
+      "enabled": {
+        "name": "Aktiviert"
+      },
+      "shareActivity": {
+        "name": "Aktivität teilen"
+      }
+    },
+    "activity": {
+      "type": {
+        "playing": "Spielt",
+        "streaming": "Streamt",
+        "listening": "Hört",
+        "watching": "Schaut",
+        "competing": "Nimmt teil an",
+        "unknown": "Unbekannt"
+      }
+    }
+  }
+}
