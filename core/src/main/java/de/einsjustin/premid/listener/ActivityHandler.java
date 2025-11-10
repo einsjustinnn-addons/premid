@@ -33,6 +33,7 @@ public class ActivityHandler {
 
     if (activity.getActiveActivity() == null) {
       this.activities.remove(this.addon.labyAPI().getUniqueId());
+      sendBroadcast(activity);
       return;
     }
 
