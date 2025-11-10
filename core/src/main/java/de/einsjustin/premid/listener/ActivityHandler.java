@@ -82,7 +82,9 @@ public class ActivityHandler {
     if (event.action() != Action.RECEIVE) {
       return;
     }
-
+    if (event.getSender() == this.addon.labyAPI().getUniqueId()) {
+      return;
+    }
     if (!event.getKey().equals("premid-activity")) {
       return;
     }
