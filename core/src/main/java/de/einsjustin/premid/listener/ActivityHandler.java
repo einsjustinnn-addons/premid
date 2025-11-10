@@ -7,6 +7,7 @@ import de.einsjustin.premid.api.PreMiDActivity;
 import de.einsjustin.premid.api.PreMiDActivity.ActiveActivity;
 import de.einsjustin.premid.api.event.PreMiDActivityChangeEvent;
 import de.einsjustin.premid.util.ImageLoader;
+import de.einsjustin.premid.util.Util;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.network.playerinfo.PlayerInfoRemoveEvent;
 import net.labymod.api.event.client.world.WorldLeaveEvent;
@@ -101,6 +102,7 @@ public class ActivityHandler {
   @Subscribe
   public void onWorldLeave(WorldLeaveEvent event) {
     this.activities.clear();
+    Util.clearIconCache();
   }
 
   public PreMiDActivity getActivity(UUID uuid) {

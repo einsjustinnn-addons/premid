@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Util {
 
-  public static final Map<String, Icon> iconCache = new HashMap<>();
+  private static final Map<String, Icon> iconCache = new HashMap<>();
 
   public static Icon getIcon(ActiveActivity activeActivity) {
 
@@ -24,5 +24,9 @@ public class Util {
     Icon icon = ImageLoader.getIcon(largeImage);
     iconCache.put(path, icon);
     return icon;
+  }
+
+  public static void clearIconCache() {
+    iconCache.clear();
   }
 }
