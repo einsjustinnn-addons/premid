@@ -23,6 +23,7 @@ public class ActivityHandler {
 
   private final PreMiDAddon addon;
   private final Map<UUID, PreMiDActivity> activities = new HashMap<>();
+  private PreMiDActivity previousActivity;
 
   public ActivityHandler(PreMiDAddon addon) {
     this.addon = addon;
@@ -67,19 +68,6 @@ public class ActivityHandler {
     }
   }
 
-  private void sendBroadcast(PreMiDActivity activity) {
-    if (!this.addon.configuration().shareActivity().get() || !this.addon.configuration().enabled().get()) {
-      return;
-    }
-    LabyConnectSession session = this.addon.labyAPI().labyConnect().getSession();
-    if (session == null || !session.isAuthenticated()) {
-      return;
-    }
-    JsonElement json = new Gson().toJsonTree(activity);
-    session.sendBroadcastPayload("premid-activity", json);
-    System.out.println("payload sent");
-  }
-
   @Subscribe
   public void onLabyConnectBroadcast(LabyConnectBroadcastEvent event) {
 
@@ -119,5 +107,21 @@ public class ActivityHandler {
 
   public PreMiDActivity getActivity(UUID uuid) {
     return this.activities.get(uuid);
+  }
+
+  private void sendBroadcast(PreMiDActivity activity) {
+    if (this.previousActivity != null && this.previousActivity.equals(activity)) {
+      return;
+    }
+    if (!this.addon.configuration().shareActivity().get() || !this.addon.configuration().enabled().get()) {
+      return;
+    }
+    LabyConnectSession session = this.addon.labyAPI().labyConnect().getSession();
+    if (session == null || !session.isAuthenticated()) {
+      return;
+    }
+    JsonElement json = new Gson().toJsonTree(activity);
+    session.sendBroadcastPayload("premid-activity", json);
+    System.out.println("payload sent");
   }
 }
