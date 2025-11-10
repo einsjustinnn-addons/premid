@@ -71,8 +71,6 @@ public class ActivityHandler {
   @Subscribe
   public void onLabyConnectBroadcast(LabyConnectBroadcastEvent event) {
 
-    System.out.println("payload received");
-
     if (event.action() != Action.RECEIVE) {
       return;
     }
@@ -122,6 +120,5 @@ public class ActivityHandler {
     }
     JsonElement json = new Gson().toJsonTree(activity);
     session.sendBroadcastPayload("premid-activity", json);
-    System.out.println("payload sent");
   }
 }
