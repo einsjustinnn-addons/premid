@@ -10,6 +10,7 @@ import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.entity.player.tag.tags.ComponentNameTag;
 import net.labymod.api.client.gfx.pipeline.renderer.text.FontFlags;
+import net.labymod.api.client.gui.HorizontalAlignment;
 import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.client.render.matrix.Stack;
 import net.labymod.api.client.render.state.entity.AvatarSnapshot;
@@ -30,10 +31,10 @@ public class PreMiDTag extends ComponentNameTag {
   private static final boolean INVERSE_DEPTH = MinecraftVersions.V1_20_6.orOlder();
   private static final float BACKGROUND_DEPTH = -0.03F;
 
+  private HorizontalAlignment alignment = HorizontalAlignment.CENTER;
+
   private Icon icon;
   private List<Component> components;
-
-  // TODO: center lines if it has no icon
 
   @Override
   protected @NotNull List<Component> buildComponents(EntitySnapshot snapshot) {
@@ -61,6 +62,8 @@ public class PreMiDTag extends ComponentNameTag {
     }
 
     this.components = new ArrayList<>();
+
+    this.alignment = this.icon == null ? HorizontalAlignment.CENTER : HorizontalAlignment.LEFT;
 
     ActivityType type = ActivityType.fromId(activeActivity.getType());
     String niceName = type.getName();
@@ -125,7 +128,11 @@ public class PreMiDTag extends ComponentNameTag {
   protected void submitText(Stack stack, SubmissionCollector submissionCollector,
       EntitySnapshot snapshot, Component component, float xOffset, float yOffset) {
 
-    xOffset = this.getHeight() + 1.0F;
+    if (this.alignment == HorizontalAlignment.LEFT) {
+      xOffset = this.getHeight() + 1.0F;
+    } else {
+      xOffset = (this.getWidth() - this.fontRenderer.getWidth(component)) / 2.0F;
+    }
 
     if (this.components.size() != 3) {
       yOffset += (this.fontRenderer.getLineHeight() + this.components.size()) / this.components.size();
