@@ -36,7 +36,7 @@ public class ImageLoader {
     }
   }
 
-  public static boolean isBase64Image(String input) {
+  private static boolean isBase64Image(String input) {
     return input != null && input.matches("^data:image/(png|jpeg|jpg|gif);base64,.*");
   }
 
@@ -47,12 +47,16 @@ public class ImageLoader {
 
   public static String getUrlFromBase64(String base64String) throws IOException {
 
+    if (!isBase64Image(base64String)) {
+      return base64String;
+    }
+
     AtomicReference<String> url = new AtomicReference<>();
 
     JsonObject jsonObject = new JsonObject();
-    jsonObject.addProperty("image", base64String);
+    jsonObject.addProperty("imagebase64", base64String);
     Request.ofString()
-        .url("https://image-shortlink-worker.northernside.workers.dev/upload")
+        .url("https://premid.jxtn.de/upload")
         .method(Method.POST)
         .json(jsonObject)
         .handleErrorStream()
@@ -64,7 +68,7 @@ public class ImageLoader {
             return;
           }
           JsonObject asJsonObject = JsonParser.parseString(stringResponse.get()).getAsJsonObject();
-          url.set(asJsonObject.get("url").getAsString());
+          url.set(asJsonObject.get("shortlink").getAsString());
         });
 
     return url.get();
