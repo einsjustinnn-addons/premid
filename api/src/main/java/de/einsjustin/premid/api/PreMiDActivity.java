@@ -78,6 +78,7 @@ public class PreMiDActivity {
   }
 
   public enum ActivityType {
+    // TODO: i18n
     PLAYING(0),
     STREAMING(1),
     LISTENING(2),
