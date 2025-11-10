@@ -175,34 +175,15 @@ public class PreMiDTag extends ComponentNameTag {
     return true;
   }
 
-  static class ColoredRectangle implements CustomGeometryRenderer {
-
-    private final float left;
-    private final float top;
-    private final float right;
-    private final float bottom;
-    private final float depth;
-    private final int argb;
-
-    public ColoredRectangle(
-        float left, float top, float right, float bottom,
-        float depth,
-        int argb
-    ) {
-      this.left = left;
-      this.top = top;
-      this.right = right;
-      this.bottom = bottom;
-      this.depth = depth;
-      this.argb = argb;
-    }
+  record ColoredRectangle(float left, float top, float right, float bottom, float depth, int argb) implements CustomGeometryRenderer {
 
     @Override
-    public void render(Matrix4f pose, VertexConsumer consumer) {
-      consumer.addVertex(pose, this.left, this.top, this.depth).setBlankUv().setColor(this.argb);
-      consumer.addVertex(pose, this.left, this.bottom, this.depth).setBlankUv().setColor(this.argb);
-      consumer.addVertex(pose, this.right, this.bottom, this.depth).setBlankUv().setColor(this.argb);
-      consumer.addVertex(pose, this.right, this.top, this.depth).setBlankUv().setColor(this.argb);
+      public void render(Matrix4f pose, VertexConsumer consumer) {
+        consumer.addVertex(pose, this.left, this.top, this.depth).setBlankUv().setColor(this.argb);
+        consumer.addVertex(pose, this.left, this.bottom, this.depth).setBlankUv().setColor(this.argb);
+        consumer.addVertex(pose, this.right, this.bottom, this.depth).setBlankUv()
+            .setColor(this.argb);
+        consumer.addVertex(pose, this.right, this.top, this.depth).setBlankUv().setColor(this.argb);
+      }
     }
-  }
 }
