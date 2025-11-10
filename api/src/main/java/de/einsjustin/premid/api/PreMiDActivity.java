@@ -46,6 +46,18 @@ public class PreMiDActivity {
       return type;
     }
 
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    public void setDetails(String details) {
+      this.details = details;
+    }
+
+    public void setState(String state) {
+      this.state = state;
+    }
+
     @Override
     public String toString() {
       return "ActiveActivity{" +
