@@ -16,6 +16,7 @@ import net.labymod.api.client.render.matrix.Stack;
 import net.labymod.api.client.render.state.entity.AvatarSnapshot;
 import net.labymod.api.client.render.state.entity.EntitySnapshot;
 import net.labymod.api.laby3d.pipeline.RenderStates;
+import net.labymod.api.laby3d.pipeline.material.GuiMaterial;
 import net.labymod.api.laby3d.render.queue.CustomGeometryRenderer;
 import net.labymod.api.laby3d.render.queue.SubmissionCollector;
 import net.labymod.api.laby3d.render.queue.submissions.IconSubmission.DisplayMode;
@@ -101,7 +102,7 @@ public class PreMiDTag extends ComponentNameTag {
         .getBackgroundColorWithOpacity(DEFAULT_BACKGROUND_COLOR);
     submissionCollector.submitCustomGeometry(
         stack,
-        RenderStates.GUI,
+        GuiMaterial.builder(RenderStates.GUI).build(),
         new ColoredRectangle(
             -3.0F, -1.0F,
             backgroundWidth + 1.0F, size + 1.0F,
