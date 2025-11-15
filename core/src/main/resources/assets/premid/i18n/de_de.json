@@ -21,7 +21,21 @@
         "competing": "Nimmt teil an",
         "unknown": "Unbekannt"
       },
-      "title": "PreMiD HowToUse"
+      "howToUse": {
+        "title": "PreMiD HowToUse",
+        "steps": {
+          "line1": "1. Öffne die Einstellungen der PreMiD Browser Erweiterung",
+          "line2": "2. Navigiere zu der Einstellung \"Activity Forwarding\" und aktiviere sie",
+          "line3": "3. Gebe den folgenden Link in das Feld \"Forwarding URL\" ein:"
+        },
+        "url": {
+          "hover": "Klicke zum kopieren",
+          "copied": {
+            "title": "Kopiert!",
+            "description": "Der Link wurde in deine Zwischenablage kopiert"
+          }
+        }
+      }
     }
   }
 }
