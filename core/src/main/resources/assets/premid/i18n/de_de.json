@@ -6,6 +6,10 @@
       },
       "shareActivity": {
         "name": "Aktivität teilen"
+      },
+      "howToUse": {
+        "name": "How to use",
+        "text": "How to use"
       }
     },
     "activity": {
@@ -16,7 +20,8 @@
         "watching": "Schaut",
         "competing": "Nimmt teil an",
         "unknown": "Unbekannt"
-      }
+      },
+      "title": "PreMiD HowToUse"
     }
   }
 }

@@ -6,6 +6,10 @@
       },
       "shareActivity": {
         "name": "Share activity"
+      },
+      "howToUse": {
+        "name": "How to use",
+        "text": "How to use"
       }
     },
     "activity": {
