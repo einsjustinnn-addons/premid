@@ -8,8 +8,11 @@ import net.labymod.api.util.io.web.request.Request.Method;
 import java.io.*;
 import java.net.URI;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.Pattern;
 
 public class ImageLoader {
+
+  private static final Pattern BASE64_PATTERN = Pattern.compile("^data:image/(png|jpeg|jpg|gif);base64,.*");
 
   public static Icon getIcon(String input) {
     try {
@@ -36,7 +39,7 @@ public class ImageLoader {
   }
 
   private static boolean isBase64Image(String input) {
-    return input != null && input.matches("^data:image/(png|jpeg|jpg|gif);base64,.*");
+    return input != null && BASE64_PATTERN.matcher(input).matches();
   }
 
   public static String getUrlFromBase64(String base64String) throws IOException {

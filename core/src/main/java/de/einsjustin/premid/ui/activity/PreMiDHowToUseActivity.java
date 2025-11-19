@@ -4,7 +4,6 @@ import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.client.gui.icon.Icon;
-import net.labymod.api.client.gui.lss.style.modifier.attribute.AttributeState;
 import net.labymod.api.client.gui.screen.Parent;
 import net.labymod.api.client.gui.screen.activity.AutoActivity;
 import net.labymod.api.client.gui.screen.activity.Link;
@@ -47,7 +46,7 @@ public class PreMiDHowToUseActivity extends SimpleActivity {
 
     TextFieldWidget urlFieldWidget = new TextFieldWidget().addId("url-field");
     urlFieldWidget.setText(PREMID_URL);
-    urlFieldWidget.setEditable(false);
+    urlFieldWidget.validator(s -> false);
     urlFieldWidget.setHoverComponent(Component.translatable("premid.activity.howToUse.url.hover"));
     urlFieldWidget.setPressable(() -> {
       Laby.labyAPI().minecraft().chatExecutor().copyToClipboard(PREMID_URL);
