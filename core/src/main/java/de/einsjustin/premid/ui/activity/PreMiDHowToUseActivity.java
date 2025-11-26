@@ -1,5 +1,6 @@
 package de.einsjustin.premid.ui.activity;
 
+import de.einsjustin.premid.PreMiDAddon;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.format.NamedTextColor;
@@ -20,7 +21,7 @@ import net.labymod.api.notification.Notification;
 @AutoActivity
 public class PreMiDHowToUseActivity extends SimpleActivity {
 
-  private final String PREMID_URL = "http://localhost:5646/api/premid";
+  private final String PREMID_URL = PreMiDAddon.getURL();
 
   @Override
   public void initialize(Parent parent) {

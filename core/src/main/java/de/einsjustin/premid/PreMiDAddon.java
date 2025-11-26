@@ -13,13 +13,14 @@ import java.util.concurrent.Executors;
 @AddonMain
 public class PreMiDAddon extends LabyAddon<PreMiDConfiguration> {
 
+  private static PreMiDServer preMiDServer;
   private ActivityHandler controller;
 
   @Override
   protected void enable() {
     this.registerSettingCategory();
 
-    PreMiDServer preMiDServer = new PreMiDServer(this);
+    preMiDServer = new PreMiDServer(this);
 
     try (ExecutorService executor = Executors.newSingleThreadExecutor()) {
       executor.execute(() -> {
@@ -32,7 +33,7 @@ public class PreMiDAddon extends LabyAddon<PreMiDConfiguration> {
     }
 
     this.controller = new ActivityHandler(this);
-    this.registerListener(controller);
+    this.registerListener(this.controller);
 
     this.labyAPI().tagRegistry().register("premid_tag", PositionType.BELOW_NAME, new PreMiDTag());
   }
@@ -43,6 +44,10 @@ public class PreMiDAddon extends LabyAddon<PreMiDConfiguration> {
   }
 
   public ActivityHandler getController() {
-    return controller;
+    return this.controller;
+  }
+
+  public static String getURL() {
+    return preMiDServer.getURL();
   }
 }

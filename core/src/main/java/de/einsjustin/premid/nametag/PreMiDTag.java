@@ -5,7 +5,7 @@ import de.einsjustin.premid.api.PreMiDActivity.ActiveActivity;
 import de.einsjustin.premid.api.PreMiDActivity.ActivityType;
 import de.einsjustin.premid.snapshot.PreMiDExtraKeys;
 import de.einsjustin.premid.snapshot.PreMiDUserSnapshot;
-import de.einsjustin.premid.util.Util;
+import de.einsjustin.premid.util.ImageLoader;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.entity.player.tag.tags.ComponentNameTag;
@@ -59,7 +59,7 @@ public class PreMiDTag extends ComponentNameTag {
     }
 
     if (activeActivity.getAssets().getLargeImage() != null) {
-      this.icon = Util.getIcon(activeActivity);
+      this.icon = ImageLoader.getIcon(activeActivity);
     }
 
     this.components = new ArrayList<>();

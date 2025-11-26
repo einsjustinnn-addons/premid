@@ -18,16 +18,18 @@ public class PreMiDServer {
   private final PreMiDAddon addon;
   private HttpServer server;
 
+  private final int port = 5646;
+
   public PreMiDServer(PreMiDAddon addon) {
     this.addon = addon;
   }
 
   public void run() throws IOException {
-    server = HttpServer.create(new InetSocketAddress(5646), 0);
+    server = HttpServer.create(new InetSocketAddress(port), 0);
     server.createContext("/api/premid", new PreMiDHandler());
     server.setExecutor(null);
     server.start();
-    addon.logger().info("PreMID Activity server started at http://localhost:5646/api/premid");
+    addon.logger().info("PreMID Activity server started at http://localhost:" + port + "/api/premid");
   }
 
   public void stop() {
@@ -61,5 +63,10 @@ public class PreMiDServer {
     exchange.sendResponseHeaders(200, 0);
     exchange.getResponseBody().write(bytes);
     exchange.close();
+  }
+
+  public String getURL() {
+    if (server == null) return null;
+    return "http://localhost:" + port + "/api/premid";
   }
 }

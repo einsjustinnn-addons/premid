@@ -7,14 +7,12 @@ import de.einsjustin.premid.api.PreMiDActivity;
 import de.einsjustin.premid.api.PreMiDActivity.ActiveActivity;
 import de.einsjustin.premid.api.event.PreMiDActivityChangeEvent;
 import de.einsjustin.premid.util.ImageLoader;
-import de.einsjustin.premid.util.Util;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.network.playerinfo.PlayerInfoRemoveEvent;
 import net.labymod.api.event.client.world.WorldLeaveEvent;
 import net.labymod.api.event.labymod.labyconnect.session.LabyConnectBroadcastEvent;
 import net.labymod.api.event.labymod.labyconnect.session.LabyConnectBroadcastEvent.Action;
 import net.labymod.api.labyconnect.LabyConnectSession;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -45,28 +43,6 @@ public class ActivityHandler {
     this.activities.put(this.addon.labyAPI().getUniqueId(), activity);
 
     sendBroadcast(activity);
-  }
-
-  private void formatActivity(PreMiDActivity activity) {
-    ActiveActivity activeActivity = activity.getActiveActivity();
-    String largeImage = activeActivity.getAssets().getLargeImage();
-    String urlFromBase64;
-    try {
-      urlFromBase64 = ImageLoader.getUrlFromBase64(largeImage);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-    activeActivity.getAssets().setLargeImage(urlFromBase64);
-
-    if (activeActivity.getName() != null && activeActivity.getName().length() > 32) {
-      activeActivity.setName(activeActivity.getName().substring(0, 29) + "...");
-    }
-    if (activeActivity.getDetails() != null && activeActivity.getDetails().length() > 32) {
-      activeActivity.setDetails(activeActivity.getDetails().substring(0, 29) + "...");
-    }
-    if (activeActivity.getState() != null && activeActivity.getState().length() > 32) {
-      activeActivity.setState(activeActivity.getState().substring(0, 29) + "...");
-    }
   }
 
   @Subscribe
@@ -102,7 +78,7 @@ public class ActivityHandler {
   @Subscribe
   public void onWorldLeave(WorldLeaveEvent event) {
     this.activities.clear();
-    Util.clearIconCache();
+    ImageLoader.clearIconCache();
   }
 
   public PreMiDActivity getActivity(UUID uuid) {
@@ -122,5 +98,22 @@ public class ActivityHandler {
     }
     JsonElement json = new Gson().toJsonTree(activity);
     session.sendBroadcastPayload("premid-activity", json);
+  }
+
+  private void formatActivity(PreMiDActivity activity) {
+    ActiveActivity activeActivity = activity.getActiveActivity();
+
+    String name = activeActivity.getName();
+    if (name != null && name.length() > 32) {
+      activeActivity.setName(name.substring(0, 29) + "...");
+    }
+    String details = activeActivity.getDetails();
+    if (details != null && details.length() > 32) {
+      activeActivity.setDetails(details.substring(0, 29) + "...");
+    }
+    String state = activeActivity.getState();
+    if (state != null && state.length() > 32) {
+      activeActivity.setState(state.substring(0, 29) + "...");
+    }
   }
 }

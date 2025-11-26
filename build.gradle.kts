@@ -1,5 +1,3 @@
-import net.labymod.labygradle.common.extension.model.labymod.ReleaseChannels
-
 plugins {
     id("net.labymod.labygradle")
     id("net.labymod.labygradle.addon")
@@ -31,8 +29,6 @@ labyMod {
         description = "This is an addon for PreMid, the browser extension. It allows you to transfer your activities in Minecraft."
         minecraftVersion = "*"
         version = rootProject.version.toString()
-
-        releaseChannel = ReleaseChannels.SNAPSHOT
     }
 }
 

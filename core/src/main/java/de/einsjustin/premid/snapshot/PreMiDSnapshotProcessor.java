@@ -8,9 +8,9 @@ import net.labymod.api.laby3d.renderer.snapshot.ExtrasWriter;
 import net.labymod.api.service.annotation.AutoService;
 
 @AutoService(EntitySnapshotProcessor.class)
-public class PlayerSnapshotProcessor extends EntitySnapshotProcessor<Player> {
+public class PreMiDSnapshotProcessor extends EntitySnapshotProcessor<Player> {
 
-  public PlayerSnapshotProcessor(EntitySnapshotRegistry registry) {
+  public PreMiDSnapshotProcessor(EntitySnapshotRegistry registry) {
     super(registry);
   }
 
