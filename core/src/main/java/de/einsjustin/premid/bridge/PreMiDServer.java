@@ -32,6 +32,7 @@ public class PreMiDServer {
     addon.logger().info("PreMID Activity server started at http://localhost:" + port + "/api/premid");
   }
 
+  @SuppressWarnings("unused")
   public void stop() {
     server.stop(0);
   }

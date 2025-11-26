@@ -21,6 +21,7 @@ public class PreMiDConfiguration extends AddonConfig {
   @SwitchSetting
   private final ConfigProperty<Boolean> shareActivity = new ConfigProperty<>(true);
 
+  @SuppressWarnings("unused")
   @MethodOrder(after = "shareActivity")
   @ButtonSetting
   public void howToUse(Setting setting) {

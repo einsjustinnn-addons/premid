@@ -7,6 +7,7 @@ import net.labymod.api.client.render.state.entity.EntitySnapshotRegistry;
 import net.labymod.api.laby3d.renderer.snapshot.ExtrasWriter;
 import net.labymod.api.service.annotation.AutoService;
 
+@SuppressWarnings("unused")
 @AutoService(EntitySnapshotProcessor.class)
 public class PreMiDSnapshotProcessor extends EntitySnapshotProcessor<Player> {
 
