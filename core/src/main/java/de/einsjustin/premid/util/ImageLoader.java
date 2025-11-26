@@ -33,8 +33,7 @@ public class ImageLoader {
 
     try {
       if (isBase64Image(largeImage)) {
-        String urlFromBase64 = getUrlFromBase64(largeImage);
-        // System.out.println(urlFromBase64);
+        String urlFromBase64 = getUrlFromBase64(activeActivity);
         activeActivity.getAssets().setLargeImage(urlFromBase64);
         icon = Icon.url(urlFromBase64);
       } else if (isUrl(largeImage)) {
@@ -61,8 +60,9 @@ public class ImageLoader {
     return input != null && BASE64_PATTERN.matcher(input).matches();
   }
 
-  // TODO: add fallback
-  public static String getUrlFromBase64(String base64String) throws IOException {
+  public static String getUrlFromBase64(ActiveActivity activeActivity) throws IOException {
+
+    String base64String = activeActivity.getAssets().getLargeImage();
 
     if (!isBase64Image(base64String)) {
       return base64String;
@@ -87,6 +87,11 @@ public class ImageLoader {
           JsonObject asJsonObject = JsonParser.parseString(stringResponse.get()).getAsJsonObject();
           url.set(asJsonObject.get("shortlink").getAsString());
         });
+
+    if (url.get() == null) {
+      String name = activeActivity.getName();
+      return String.format("https://cdn.rcd.gg/PreMiD/websites/%s/%s/assets/logo.png", name.toUpperCase().charAt(0), name.replace(" ", "%20"));
+    }
 
     return url.get();
   }
