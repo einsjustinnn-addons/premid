@@ -21,6 +21,23 @@ public class ImageLoader {
 
   private static final Map<String, Icon> iconCache = new HashMap<>();
 
+  public static String getShortImageUrl(ActiveActivity activeActivity) {
+
+    String largeImage = activeActivity.getAssets().getLargeImage();
+
+    try {
+      if (isBase64Image(largeImage)) {
+        return getUrlFromBase64(activeActivity);
+      } else if (isUrl(largeImage)) {
+        return largeImage;
+      }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return largeImage;
+
+  }
+
   public static Icon getIcon(ActiveActivity activeActivity) {
 
     String largeImage = activeActivity.getAssets().getLargeImage();
@@ -31,17 +48,9 @@ public class ImageLoader {
       return icon;
     }
 
-    try {
-      if (isBase64Image(largeImage)) {
-        String urlFromBase64 = getUrlFromBase64(activeActivity);
-        activeActivity.getAssets().setLargeImage(urlFromBase64);
-        icon = Icon.url(urlFromBase64);
-      } else if (isUrl(largeImage)) {
-        icon = Icon.url(largeImage);
-      }
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    String shortImageUrl = getShortImageUrl(activeActivity);
+    icon = Icon.url(shortImageUrl);
+
     iconCache.put(path, icon);
     return icon;
   }
@@ -60,7 +69,7 @@ public class ImageLoader {
     return input != null && BASE64_PATTERN.matcher(input).matches();
   }
 
-  public static String getUrlFromBase64(ActiveActivity activeActivity) throws IOException {
+  private static String getUrlFromBase64(ActiveActivity activeActivity) throws IOException {
 
     String base64String = activeActivity.getAssets().getLargeImage();
 

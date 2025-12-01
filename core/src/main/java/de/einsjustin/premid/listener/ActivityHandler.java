@@ -103,6 +103,11 @@ public class ActivityHandler {
   private void formatActivity(PreMiDActivity activity) {
     ActiveActivity activeActivity = activity.getActiveActivity();
 
+    if (activeActivity.getAssets().getLargeImage() != null) {
+      String shortImageUrl = ImageLoader.getShortImageUrl(activeActivity);
+      activeActivity.getAssets().setLargeImage(shortImageUrl);
+    }
+
     String name = activeActivity.getName();
     if (name != null && name.length() > 32) {
       activeActivity.setName(name.substring(0, 29) + "...");
