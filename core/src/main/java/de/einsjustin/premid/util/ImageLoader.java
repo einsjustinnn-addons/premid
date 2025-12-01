@@ -88,6 +88,7 @@ public class ImageLoader {
           url.set(asJsonObject.get("shortlink").getAsString());
         });
 
+    // fallback if my base64 shorter doesn't work
     if (url.get() == null) {
       String name = activeActivity.getName();
       return String.format("https://cdn.rcd.gg/PreMiD/websites/%s/%s/assets/logo.png", name.toUpperCase().charAt(0), name.replace(" ", "%20"));
