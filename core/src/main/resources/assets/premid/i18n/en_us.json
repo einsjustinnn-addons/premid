@@ -1,0 +1,41 @@
+{
+  "premid": {
+    "settings": {
+      "enabled": {
+        "name": "Enabled"
+      },
+      "shareActivity": {
+        "name": "Share activity"
+      },
+      "howToUse": {
+        "name": "How to use",
+        "text": "How to use"
+      }
+    },
+    "activity": {
+      "type": {
+        "playing": "Playing",
+        "streaming": "Streaming",
+        "listening": "Listening",
+        "watching": "Watching",
+        "competing": "Competing",
+        "unknown": "Unknown"
+      },
+      "howToUse": {
+        "title": "PreMiD HowToUse",
+        "steps": {
+          "line1": "1. Open the Settings of the PreMiD Browser Extension",
+          "line2": "2. Scroll down to the Setting \"Activity Forwarding\" and enable it",
+          "line3": "3. Enter the following link in the \"Forwarding URL\" field:"
+        },
+        "url": {
+          "hover": "Click to copy",
+          "copied": {
+            "title": "Copied!",
+            "description": "The link has been copied to your clipboard"
+          }
+        }
+      }
+    }
+  }
+}
