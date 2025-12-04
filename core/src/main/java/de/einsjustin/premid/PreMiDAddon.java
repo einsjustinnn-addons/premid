@@ -3,12 +3,12 @@ package de.einsjustin.premid;
 import de.einsjustin.premid.bridge.PreMiDServer;
 import de.einsjustin.premid.listener.ActivityHandler;
 import de.einsjustin.premid.nametag.PreMiDTag;
-import net.labymod.api.addon.LabyAddon;
-import net.labymod.api.client.entity.player.tag.PositionType;
-import net.labymod.api.models.addon.annotation.AddonMain;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import net.labymod.api.addon.LabyAddon;
+import net.labymod.api.client.entity.player.tag.PositionType;
+import net.labymod.api.models.addon.annotation.AddonMain;
 
 @AddonMain
 public class PreMiDAddon extends LabyAddon<PreMiDConfiguration> {

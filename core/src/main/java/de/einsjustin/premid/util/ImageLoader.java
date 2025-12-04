@@ -1,12 +1,8 @@
 package de.einsjustin.premid.util;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import de.einsjustin.premid.api.PreMiDActivity.ActiveActivity;
-import net.labymod.api.client.gui.icon.Icon;
-import net.labymod.api.util.io.web.request.Request;
-import net.labymod.api.util.io.web.request.Request.Method;
-import java.io.*;
+import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -14,6 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Pattern;
+import net.labymod.api.client.gui.icon.Icon;
+import net.labymod.api.util.io.web.request.Request;
+import net.labymod.api.util.io.web.request.Request.Method;
 
 public class ImageLoader {
 
@@ -93,7 +92,7 @@ public class ImageLoader {
           if (stringResponse.getStatusCode() != 200) {
             return;
           }
-          JsonObject asJsonObject = JsonParser.parseString(stringResponse.get()).getAsJsonObject();
+          JsonObject asJsonObject = JsonUtil.fromJson(stringResponse.get(), JsonObject.class);
           url.set(asJsonObject.get("shortlink").getAsString());
         });
 
