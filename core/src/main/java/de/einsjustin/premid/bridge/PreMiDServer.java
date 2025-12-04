@@ -1,17 +1,17 @@
 package de.einsjustin.premid.bridge;
 
-import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import de.einsjustin.premid.PreMiDAddon;
 import de.einsjustin.premid.api.PreMiDActivity;
 import de.einsjustin.premid.api.event.PreMiDActivityChangeEvent;
-import net.labymod.api.Laby;
+import de.einsjustin.premid.util.JsonUtil;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+import net.labymod.api.Laby;
 
 public class PreMiDServer {
 
@@ -50,7 +50,7 @@ public class PreMiDServer {
 
         String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
 
-        PreMiDActivity activity = new Gson().fromJson(body, PreMiDActivity.class);
+        PreMiDActivity activity = JsonUtil.fromJson(body, PreMiDActivity.class);
 
         Laby.fireEvent(new PreMiDActivityChangeEvent(activity));
 

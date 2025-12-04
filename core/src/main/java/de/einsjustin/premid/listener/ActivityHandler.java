@@ -1,21 +1,18 @@
 package de.einsjustin.premid.listener;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import de.einsjustin.premid.PreMiDAddon;
 import de.einsjustin.premid.api.PreMiDActivity;
 import de.einsjustin.premid.api.PreMiDActivity.ActiveActivity;
 import de.einsjustin.premid.api.event.PreMiDActivityChangeEvent;
 import de.einsjustin.premid.util.ImageLoader;
+import de.einsjustin.premid.util.JsonUtil;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.network.playerinfo.PlayerInfoRemoveEvent;
 import net.labymod.api.event.client.world.WorldLeaveEvent;
 import net.labymod.api.event.labymod.labyconnect.session.LabyConnectBroadcastEvent;
 import net.labymod.api.event.labymod.labyconnect.session.LabyConnectBroadcastEvent.Action;
 import net.labymod.api.labyconnect.LabyConnectSession;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 @SuppressWarnings("unused")
 public class ActivityHandler {
@@ -59,7 +56,7 @@ public class ActivityHandler {
     }
 
     UUID sender = event.getSender();
-    PreMiDActivity activity = new Gson().fromJson(event.getPayload(), PreMiDActivity.class);
+    PreMiDActivity activity = JsonUtil.fromJson(event.getPayload(), PreMiDActivity.class);
 
     if (activity.getActiveActivity() == null) {
       this.activities.remove(sender);
@@ -96,7 +93,7 @@ public class ActivityHandler {
     if (session == null || !session.isAuthenticated()) {
       return;
     }
-    JsonElement json = new Gson().toJsonTree(activity);
+    JsonElement json = JsonUtil.toJsonTree(activity);
     session.sendBroadcastPayload("premid-activity", json);
   }
 

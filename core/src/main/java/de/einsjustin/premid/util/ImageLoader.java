@@ -93,7 +93,7 @@ public class ImageLoader {
           if (stringResponse.getStatusCode() != 200) {
             return;
           }
-          JsonObject asJsonObject = JsonParser.parseString(stringResponse.get()).getAsJsonObject();
+          JsonObject asJsonObject = JsonUtil.fromJson(stringResponse.get(), JsonObject.class);
           url.set(asJsonObject.get("shortlink").getAsString());
         });
 
