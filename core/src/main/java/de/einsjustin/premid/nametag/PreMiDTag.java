@@ -6,6 +6,8 @@ import de.einsjustin.premid.api.PreMiDActivity.ActivityType;
 import de.einsjustin.premid.snapshot.PreMiDExtraKeys;
 import de.einsjustin.premid.snapshot.PreMiDUserSnapshot;
 import de.einsjustin.premid.util.ImageLoader;
+import java.util.ArrayList;
+import java.util.List;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.entity.player.tag.tags.ComponentNameTag;
@@ -24,8 +26,6 @@ import net.labymod.api.loader.MinecraftVersions;
 import net.labymod.laby3d.api.vertex.VertexConsumer;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PreMiDTag extends ComponentNameTag {
 
