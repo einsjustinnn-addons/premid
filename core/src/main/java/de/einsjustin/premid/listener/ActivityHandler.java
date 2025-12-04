@@ -7,6 +7,9 @@ import de.einsjustin.premid.api.PreMiDActivity.ActiveActivity;
 import de.einsjustin.premid.api.event.PreMiDActivityChangeEvent;
 import de.einsjustin.premid.util.ImageLoader;
 import de.einsjustin.premid.util.JsonUtil;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.network.playerinfo.PlayerInfoRemoveEvent;
 import net.labymod.api.event.client.world.WorldLeaveEvent;
@@ -18,7 +21,7 @@ import net.labymod.api.labyconnect.LabyConnectSession;
 public class ActivityHandler {
 
   private final PreMiDAddon addon;
-  private final Map<UUID, PreMiDActivity> activities = new HashMap<>();
+  private final Map<UUID, PreMiDActivity> activities = new ConcurrentHashMap<>();
   private PreMiDActivity previousActivity;
 
   public ActivityHandler(PreMiDAddon addon) {
