@@ -1,5 +1,6 @@
 package de.einsjustin.premid.nametag;
 
+import de.einsjustin.premid.PreMiDAddon;
 import de.einsjustin.premid.api.PreMiDActivity;
 import de.einsjustin.premid.api.PreMiDActivity.ActiveActivity;
 import de.einsjustin.premid.api.PreMiDActivity.ActivityType;
@@ -29,6 +30,8 @@ import org.joml.Matrix4f;
 
 public class PreMiDTag extends ComponentNameTag {
 
+  private final PreMiDAddon addon;
+
   private static final boolean INVERSE_DEPTH = MinecraftVersions.V1_20_6.orOlder();
   private static final float BACKGROUND_DEPTH = -0.03F;
 
@@ -37,8 +40,17 @@ public class PreMiDTag extends ComponentNameTag {
   private Icon icon;
   private List<Component> components;
 
+  public PreMiDTag(PreMiDAddon addon) {
+    this.addon = addon;
+  }
+
   @Override
   protected @NotNull List<Component> buildComponents(EntitySnapshot snapshot) {
+
+    if (!this.addon.configuration().enabled().get()) {
+      return super.buildComponents(snapshot);
+    }
+
     if (!(snapshot instanceof AvatarSnapshot avatarSnapshot) || avatarSnapshot.isDiscrete()) {
       return super.buildComponents(snapshot);
     }

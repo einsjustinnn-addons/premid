@@ -35,7 +35,7 @@ public class PreMiDAddon extends LabyAddon<PreMiDConfiguration> {
     this.controller = new ActivityHandler(this);
     this.registerListener(this.controller);
 
-    this.labyAPI().tagRegistry().register("premid_tag", PositionType.BELOW_NAME, new PreMiDTag());
+    this.labyAPI().tagRegistry().register("premid_tag", PositionType.BELOW_NAME, new PreMiDTag(this));
   }
 
   @Override

@@ -46,11 +46,11 @@ public class PreMiDHowToUseActivity extends SimpleActivity {
     descriptionContainer.addContent(line3);
 
     TextFieldWidget urlFieldWidget = new TextFieldWidget().addId("url-field");
-    urlFieldWidget.setText(PREMID_URL);
+    urlFieldWidget.setText(this.PREMID_URL);
     urlFieldWidget.validator(s -> false);
     urlFieldWidget.setHoverComponent(Component.translatable("premid.activity.howToUse.url.hover"));
     urlFieldWidget.setPressable(() -> {
-      Laby.labyAPI().minecraft().chatExecutor().copyToClipboard(PREMID_URL);
+      Laby.labyAPI().minecraft().chatExecutor().copyToClipboard(this.PREMID_URL);
       Notification.builder()
           .title(Component.translatable("premid.activity.howToUse.url.copied.title"))
           .text(Component.translatable("premid.activity.howToUse.url.copied.description"))
