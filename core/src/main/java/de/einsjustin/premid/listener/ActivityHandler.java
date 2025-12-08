@@ -34,15 +34,15 @@ public class ActivityHandler {
 
     if (activity.getActiveActivity() == null) {
       this.activities.remove(this.addon.labyAPI().getUniqueId());
-      sendBroadcast(activity);
+      this.sendBroadcast(activity);
       return;
     }
 
-    formatActivity(activity);
+    this.formatActivity(activity);
 
     this.activities.put(this.addon.labyAPI().getUniqueId(), activity);
 
-    sendBroadcast(activity);
+    this.sendBroadcast(activity);
   }
 
   @Subscribe

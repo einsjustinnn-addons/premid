@@ -16,6 +16,6 @@ public class PreMiDUserSnapshot extends AbstractLabySnapshot {
   }
 
   public PreMiDActivity getActivity() {
-    return activity;
+    return this.activity;
   }
 }
